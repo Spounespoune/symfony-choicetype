@@ -16,16 +16,18 @@ class IndexController extends AbstractController
     public function index(Request $request)
     {
         $user = new User();
+        $submit = false;
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
+            $submit = true;
         }
 
         return $this->render('page/index.html.twig', [
             'form' => $form->createView(),
+            'submit' => $submit
         ]);
     }
 }
